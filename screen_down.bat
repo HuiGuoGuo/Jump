@@ -1,0 +1,1 @@
+adb pull /sdcard/screenshot.png D:/screenshot.png
