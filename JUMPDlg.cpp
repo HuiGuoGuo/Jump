@@ -211,30 +211,25 @@ void CJUMPDlg::Jump(CPoint start, CPoint end)
 	CString command;
    // command = _T("adb shell input swipe 320 410 320 410 %d");
 	int inst = int(instance * 1.35);
-	command.Format(_T("/C adb shell input swipe 320 410 320 410 %d"), inst);
+	
+	RandCommand(command,inst);
+	
 	ShellExecute(m_hWnd, NULL, _T("cmd"), command,NULL,SW_HIDE);
 	//ExecuteCmd(command);
-	//≥¡ÀØ1√Î
-	Sleep(3000);
+
 	this->LoadImage();
 
 }
 
 void CJUMPDlg::LoadImage()
 {
-	//system("adb shell screencap -p /sdcard/test/screenshot.png");
-	
-	//system("adb pull /sdcard/test/screenshot.png d:/screenshot.png");
-	//ShellExecute(m_hWnd, _T("open"), _T("cmd"), _T("/C adb shell /system/bin/screencap -p /sdcard/test/screenshot.png"), NULL, SW_HIDE);
-
-	//ShellExecute(m_hWnd, _T("open"), _T("cmd"), _T("/C adb pull /sdcard/test/screenshot.png d:/screenshot.png"), NULL, SW_HIDE);
-	
+	Sleep(2500);
 	ExecuteCmd(_T("adb shell screencap -p /sdcard/test/screenshot.png"));
-	ExecuteCmd(_T("adb pull /sdcard/test/screenshot.png d:/screenshot.png"));
+	ExecuteCmd(_T("adb pull /sdcard/test/screenshot.png screenshot.png"));
 	CImage img, imDest;
-	img.Load(_T("d:/screenshot.png"));
+	img.Load(_T("screenshot.png"));
 
-	ChangeImage(&img, &imDest, 480, 270);
+	ChangeImage(&img, &imDest, 480, 270); //1920 * 1080 Àı–° 4 ±∂
 
 
 	HBITMAP hbitmap = imDest.Detach();
@@ -319,4 +314,34 @@ TCHAR* CJUMPDlg::StringToChar(CString& str)
 	TCHAR* tr = str.GetBuffer(len);
 	str.ReleaseBuffer();
 	return tr;
+}
+
+void CJUMPDlg::RandCommand(CString &command, int inst)
+{
+	for (int i = 0; i < 5; i++){
+		i = rand();
+		switch (i)
+		{
+		case 1:
+			command.Format(_T("/C adb shell input swipe 321 415 320 410 %d"), inst);
+			break;
+		case 2:
+			command.Format(_T("/C adb shell input swipe 324 410 320 410 %d"), inst);
+			break;
+		case 3:
+			command.Format(_T("/C adb shell input swipe 326 417 320 410 %d"), inst);
+			break;
+		case 4:
+			command.Format(_T("/C adb shell input swipe 322 419 320 410 %d"), inst);
+			break;
+		case 5:
+			command.Format(_T("/C adb shell input swipe 325 415 320 410 %d"), inst);
+			break;
+		default:
+			command.Format(_T("/C adb shell input swipe 320 410 320 410 %d"), inst);
+			break;
+
+		}
+
+	}
 }

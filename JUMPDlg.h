@@ -45,4 +45,5 @@ public:
 	afx_msg void OnBnClickedButton3();
 	CString CJUMPDlg::ExecuteCmd(CString str);
 	TCHAR* CJUMPDlg::StringToChar(CString& str);
+	void RandCommand(CString& command,int inst);
 };
